@@ -180,4 +180,3 @@ Ce document liste les améliorations et fonctionnalités futures possibles pour 
 
 **Note** : Cette roadmap est évolutive et peut être adaptée selon les besoins et priorités de RenoStart Conseil.
 
-
