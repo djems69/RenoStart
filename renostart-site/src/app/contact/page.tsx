@@ -100,7 +100,7 @@ export default function ContactPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="nom" className="block text-sm font-medium text-neutral-700 mb-2">
                     Nom complet *
                   </label>
                   <input
@@ -110,13 +110,13 @@ export default function ContactPage() {
                     value={formData.nom}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                     placeholder="Votre nom complet"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
                     Email *
                   </label>
                   <input
@@ -126,13 +126,13 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                     placeholder="votre.email@exemple.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="telephone" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="telephone" className="block text-sm font-medium text-neutral-700 mb-2">
                     Téléphone
                   </label>
                   <input
@@ -141,13 +141,13 @@ export default function ContactPage() {
                     name="telephone"
                     value={formData.telephone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                     placeholder="Votre numéro de téléphone"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -157,7 +157,7 @@ export default function ContactPage() {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-none"
                     placeholder="Décrivez vos besoins de formation ou d'accompagnement..."
                   />
                 </div>
@@ -165,7 +165,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                  className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
                 >
                   {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
                 </button>
@@ -174,7 +174,7 @@ export default function ContactPage() {
 
             {/* Coordonnées et carte */}
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-6">
                 Nos coordonnées
               </h2>
               
@@ -193,6 +193,7 @@ export default function ContactPage() {
                       Spécialiste BTP<br />
                       France
                     </p>
+                    
                   </div>
                 </div>
 
@@ -223,23 +224,24 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-neutral-900">Horaires</h3>
                     <p className="text-neutral-600">
                       Lundi - Vendredi : 9h00 - 18h00<br />
-                      Samedi : 9h00 - 12h00<br />
+                      Samedi : Fermé<br />
                       Dimanche : Fermé
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Carte Google Maps (placeholder) */}
-              <div className="bg-neutral-200 rounded-lg h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <svg className="w-16 h-16 text-neutral-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <p className="text-neutral-500 font-medium">Carte Google Maps</p>
-                  <p className="text-neutral-400 text-sm">Intégration à configurer</p>
-                </div>
+              {/* Carte Google Maps intégrée */}
+              <div className="relative rounded-lg overflow-hidden bg-neutral-200 pt-[56.25%]">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  title="Localisation RenoStart Conseil"
+                  src="https://www.google.com/maps?q=RenoStart%20Conseil%2C%20France&output=embed"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
               </div>
             </div>
           </div>
