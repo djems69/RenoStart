@@ -1,7 +1,7 @@
 'use client'
 
 import { Metadata } from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +15,33 @@ export default function ContactPage() {
     type: 'success' | 'error' | null
     message: string
   }>({ type: null, message: '' })
+
+  // Gestion des paramètres d'URL pour les messages PHP
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const status = urlParams.get('status')
+    const message = urlParams.get('message')
+    
+    if (status && message) {
+      setSubmitStatus({
+        type: status as 'success' | 'error',
+        message: decodeURIComponent(message)
+      })
+      
+      // Si c'est une erreur, restaurer les données du formulaire
+      if (status === 'error') {
+        setFormData({
+          nom: urlParams.get('nom') || '',
+          email: urlParams.get('email') || '',
+          telephone: urlParams.get('telephone') || '',
+          message: urlParams.get('message') || ''
+        })
+      }
+      
+      // Nettoyer l'URL
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -30,26 +57,29 @@ export default function ContactPage() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      const response = await fetch('/api/contact', {
+      // Créer un FormData pour l'envoi PHP
+      const formDataToSend = new FormData()
+      formDataToSend.append('nom', formData.nom)
+      formDataToSend.append('email', formData.email)
+      formDataToSend.append('telephone', formData.telephone)
+      formDataToSend.append('message', formData.message)
+
+      const response = await fetch('/contact-process.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       })
 
-      const data = await response.json()
-
       if (response.ok) {
+        // Le script PHP redirige, donc on ne reçoit pas de JSON
         setSubmitStatus({
           type: 'success',
-          message: data.message
+          message: 'Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.'
         })
         setFormData({ nom: '', email: '', telephone: '', message: '' })
       } else {
         setSubmitStatus({
           type: 'error',
-          message: data.error || 'Une erreur est survenue'
+          message: 'Une erreur est survenue lors de l\'envoi du message'
         })
       }
     } catch (error) {
